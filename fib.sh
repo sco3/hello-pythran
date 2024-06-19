@@ -23,6 +23,8 @@ function fib {
 	time ./fib-rs
 }
 
+./cpu-governor.sh
+
 echo Pythran example >readme.md
 echo '===' >>readme.md
 echo '' >>readme.md

@@ -8,5 +8,5 @@ fn  fib(n: i64)->i64 {
 }
 
 fn main () {
-    println!("Time: {} ms",fib (40));
+    println!("result: {}",fib (40));
 }

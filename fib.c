@@ -9,5 +9,5 @@ int fib(int n) {
 }
 
 int main () {
-    printf ("result: %d", fib (40));
+    printf ("result: %d\n", fib (40));
 }
