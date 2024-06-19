@@ -17,6 +17,11 @@ function fib {
 	echo ""
 	time ./fib-c
 
+	echo "D:"
+	dmd -O -of=fib-d fib.d
+	echo ""
+	time ./fib-d
+
 	echo "Rust:"
 	rustc -C opt-level=3 -o fib-rs fib.rs
 	echo ""
@@ -34,8 +39,9 @@ function fib {
 }
 
 ./cpu-governor.sh
-
-echo Pythran example >readme.md
+cat /proc/cpuinfo | grep 'model name' | sort -u | awk '{ $1=""; $2="";$3="" ;print }'  > readme.md
+echo "===" >> readme.md
+echo Pythran example >>readme.md
 echo '===' >>readme.md
 echo '' >>readme.md
 echo '```' >>readme.md
