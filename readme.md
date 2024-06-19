@@ -9,9 +9,9 @@ Pythran example
 /home/dz/prj/hello-pythran/fib.py
 result:  102334155
 
-real	0m6.852s
-user	0m6.838s
-sys	0m0.005s
+real	0m7.008s
+user	0m7.000s
+sys	0m0.002s
 + pythran -w fib.py -o fib.so
 + echo ''
 
@@ -19,9 +19,9 @@ sys	0m0.005s
 /home/dz/prj/hello-pythran/fib.so
 result:  102334155
 
-real	0m2.718s
-user	0m2.700s
-sys	0m0.013s
+real	0m2.559s
+user	0m2.546s
+sys	0m0.011s
 + echo C:
 C:
 + gcc -O3 -o fib-c fib.c
@@ -30,7 +30,7 @@ C:
 + ./fib-c
 result: 102334155
 
-real	0m0.110s
+real	0m0.111s
 user	0m0.110s
 sys	0m0.000s
 + echo Rust:
@@ -41,8 +41,8 @@ Rust:
 + ./fib-rs
 result: 102334155
 
-real	0m0.173s
-user	0m0.171s
+real	0m0.171s
+user	0m0.170s
 sys	0m0.001s
 + echo V:
 V:
@@ -52,7 +52,18 @@ V:
 + ./fib-v
 result: 102334155
 
-real	0m0.109s
-user	0m0.108s
+real	0m0.108s
+user	0m0.107s
+sys	0m0.000s
++ echo Go:
+Go:
++ go build -o fib-go fib.go
++ echo ''
+
++ ./fib-go
+result: 102334155
+
+real	0m0.331s
+user	0m0.330s
 sys	0m0.001s
 ```

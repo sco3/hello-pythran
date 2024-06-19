@@ -26,6 +26,11 @@ function fib {
 	v -prod -o fib-v fib.v
 	echo ""
 	time ./fib-v
+
+	echo "Go:"
+	go build -o fib-go fib.go
+	echo ""
+	time ./fib-go
 }
 
 ./cpu-governor.sh
