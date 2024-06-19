@@ -21,6 +21,11 @@ function fib {
 	rustc -C opt-level=3 -o fib-rs fib.rs
 	echo ""
 	time ./fib-rs
+
+	echo "V:"
+	v -prod -o fib-v fib.v
+	echo ""
+	time ./fib-v
 }
 
 ./cpu-governor.sh
