@@ -60,7 +60,7 @@ mkdir -p target
 echo Pythran example >readme.md
 echo '===' >>readme.md
 cat /proc/cpuinfo | grep 'model name' | sort -u | awk '{ $1=""; $2="";$3="" ;print }' >>readme.md
-echo "---" >>readme.md
+echo " " >>readme.md
 
 echo '' >>readme.md
 echo '```' >>readme.md
