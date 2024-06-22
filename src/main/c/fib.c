@@ -1,7 +1,6 @@
 #include <stdio.h>
+#include "fib.h"
 
-
-extern void foo(void);
 
 int fib(int n) {
     if (n <= 1) {
