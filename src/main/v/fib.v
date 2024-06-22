@@ -1,6 +1,8 @@
 
 
-fn  fib(n int ) int {
+
+
+pub fn  fib(n int ) int {
     if n <= 1 {
         return n
     } else {
