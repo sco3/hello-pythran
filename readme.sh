@@ -19,7 +19,13 @@ function fib() {
 	
 	echo "Python+C (ctypes):"
 	gcc -shared -O3 -fPIC -o target/fib.so src/main/c/fib.c
-	time  src/main/py/main-ctypes.py
+	time  src/main/py/main_ctypes.py
+	
+	echo "Python+C (cffi):"
+	gcc -O3 -fPIC src/main/c/fib.c -c -o target/fib.o
+	ar rsc target/libfib.a  target/fib.o
+	src/main/py/fibc_build.py
+	time src/main/py/fibc_main.py
 
 	echo "D:"
 	dmd -O -of=target/fib-d src/main/d/fib.d

@@ -1,5 +1,6 @@
-__pycache__
 target
 .vscode/
-__pycache__
+**/__pycache__
 **/*.pyc
+src/main/py/fibc.c
+src/main/py/fibc.o
