@@ -1,57 +1,62 @@
 #!/usr/bin/env -S bash
 
-
 function fib() {
 
-	set -xueo pipefail
+    set -xueo pipefail
 
-	echo "Python:"
-	time src/main/py/main.py
+    echo "Python:"
+    time src/main/py/main.py
 
-	pythran -w src/main/py/fib.py -o src/main/py/fib.so >/dev/null 2>&1
+    pythran -w src/main/py/fib.py -o src/main/py/fib.so >/dev/null 2>&1
 
-	echo "Pythran:"
-	time src/main/py/main.py
+    echo "Pythran:"
+    time src/main/py/main.py
 
-	echo "C:"
-	gcc -O3 -o target/fib-c src/main/c/fib.c
-	time target/fib-c
-	
-	echo "Python+C (ctypes):"
-	gcc -shared -O3 -fPIC -o target/fib.so src/main/c/fib.c
-	time  src/main/py/main_ctypes.py
-	
-	echo "Python+C (cffi):"
-	gcc -O3 -fPIC src/main/c/fib.c -c -o target/fib.o
-	ar rsc target/libfib.a  target/fib.o
-	src/main/py/fibc_build.py
-	time src/main/py/fibc_main.py
+    echo "C:"
+    gcc -O3 -o target/fib-c src/main/c/fib.c
+    time target/fib-c
 
-	echo "D:"
-	dmd -O -of=target/fib-d src/main/d/fib.d
-	time target/fib-d
+    echo "Python+C (ctypes):"
+    gcc -shared -O3 -fPIC -o target/fib.so src/main/c/fib.c
+    time src/main/py/main_ctypes.py
 
-	echo "Rust:"
-	rustc -C opt-level=3 -o target/fib-rs src/main/rust/fib.rs
-	time target/fib-rs
+    echo "Python+C (cffi):"
+    gcc -O3 -fPIC src/main/c/fib.c -c -o target/fib.o
+    ar rsc target/libfib.a target/fib.o
+    src/main/py/fibc_build.py
+    time src/main/py/fibc_main.py
 
-	echo "V:"
-	v -prod -o target/fib-v src/main/v/fib.v
-	time target/fib-v
+    echo "Mypyc:"
+    cd src/main/mypyc
+    python3 -m mypyc *.py
+    time python3 -c 'import main'
+    cd -
 
-	echo "Go:"
-	go build -o target/fib-go src/main/go/fib.go
-	time target/fib-go
-	
-	echo "Mojo: run"
-	time src/main/mojo/fib.mojo
+    echo "D:"
+    dmd -O -of=target/fib-d src/main/d/fib.d
+    time target/fib-d
 
-	echo "Mojo: build"
-	mojo build -o target/fib-mojo src/main/mojo/fib.mojo
-	time target/fib-mojo
+    echo "Rust:"
+    rustc -C opt-level=3 -o target/fib-rs src/main/rust/fib.rs
+    time target/fib-rs
+
+    echo "V:"
+    v -prod -o target/fib-v src/main/v/fib.v
+    time target/fib-v
+
+    echo "Go:"
+    go build -o target/fib-go src/main/go/fib.go
+    time target/fib-go
+
+    echo "Mojo: run"
+    time src/main/mojo/fib.mojo
+
+    echo "Mojo: build"
+    mojo build -o target/fib-mojo src/main/mojo/fib.mojo
+    time target/fib-mojo
 }
 
-sudo cpupower frequency-set --governor performance 2>&1 > /dev/null
+sudo cpupower frequency-set --governor performance 2>&1 >/dev/null
 
 rm -rf src/main/py/fib.so
 rm -rf target
@@ -66,4 +71,3 @@ echo '' >>readme.md
 echo '```' >>readme.md
 fib 2>&1 | awk '$2 != "on"' | awk '$2 != "off"' | grep -v libtinfo | tee -a readme.md
 echo '```' >>readme.md
-
