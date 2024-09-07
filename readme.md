@@ -100,7 +100,9 @@ real	0m0.115s
 user	0m0.114s
 sys	0m0.000s
 + echo Go:
+
 Go:
+
 + go build -o target/fib-go src/main/go/fib.go
 + target/fib-go
 result: 102334155
@@ -109,7 +111,9 @@ real	0m0.333s
 user	0m0.331s
 sys	0m0.001s
 + echo 'Mojo: run'
+
 Mojo: run
+
 + src/main/mojo/fib.mojo
 result:  102334155
 
@@ -117,7 +121,9 @@ real	0m0.263s
 user	0m0.256s
 sys	0m0.026s
 + echo 'Mojo: build'
+
 Mojo: build
+
 + mojo build -o target/fib-mojo src/main/mojo/fib.mojo
 + target/fib-mojo
 result:  102334155
@@ -125,4 +131,16 @@ result:  102334155
 real	0m0.251s
 user	0m0.247s
 sys	0m0.004s
+```
+Numba:
+
+```
++ time uv run main.py 
+warning: `uv run` is experimental and may change without warning
+... src/main/numba/src/numba_fib/fib.py
+result:  102334155
+
+real	0m1.889s
+user	0m2.081s
+sys	0m0.105s
 ```
